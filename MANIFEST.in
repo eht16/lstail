@@ -1,0 +1,7 @@
+include LICENSE
+include README.rst
+include lstail.conf
+include docs/Makefile
+recursive-include lstail *.py
+recursive-include docs *.py *.rst *.css *.gif *.png
+recursive-exclude docs/_build *

@@ -1,0 +1,15 @@
+{
+    "cluster_name": "test-cluster-es6",
+    "cluster_uuid": "fc0dc214-bf64-4e81-8093-1fc857a25485",
+    "name": "n1-test-cluster-es6",
+    "tagline": "You Know, for Search",
+    "version": {
+        "build_date": "2018-03-13T10:06:29.741383Z",
+        "build_hash": "c59ff00",
+        "build_snapshot": false,
+        "lucene_version": "7.2.1",
+        "minimum_index_compatibility_version": "5.0.0",
+        "minimum_wire_compatibility_version": "5.6.0",
+        "number": "6.2.3"
+    }
+}

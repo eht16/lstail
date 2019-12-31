@@ -1,0 +1,104 @@
+{
+    "_shards": {
+        "failed": 0,
+        "skipped": 0,
+        "successful": 1,
+        "total": 1
+    },
+    "hits": {
+        "hits": [
+            {
+                "_id": "search:Parse-Errors",
+                "_index": ".kibana",
+                "_score": 0.9614112,
+                "_source": {
+                    "search": {
+                        "columns": [
+                            "tags",
+                            "logsource",
+                            "program",
+                            "message"
+                        ],
+                        "description": "",
+                        "hits": 0,
+                        "kibanaSavedObjectMeta": {
+                            "searchSourceJSON": "{\"index\":\"5ea54630-2c47-11e8-ad58-af701a8fdecd\",\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"Parse Errors\",\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"query\",\"negate\":false,\"value\":\"{\\\"filtered\\\":{\\\"filter\\\":{\\\"terms\\\":{\\\"tags\\\":[\\\"_grokparsefailure\\\",\\\"_jsonparsefailure\\\",\\\"_log_level_normalization_failed\\\"]}}}}\"},\"query\":{\"filtered\":{\"filter\":{\"terms\":{\"tags\":[\"_grokparsefailure\",\"_jsonparsefailure\",\"_log_level_normalization_failed\"]}}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"language\":\"lucene\"}}"
+                        },
+                        "sort": [
+                            "@timestamp",
+                            "desc"
+                        ],
+                        "title": "Parse Errors",
+                        "version": 1
+                    },
+                    "type": "search",
+                    "updated_at": "2018-03-25T09:48:04.131Z"
+                },
+                "_type": "doc"
+            },
+            {
+                "_id": "search:2ca51790-9670-11e7-a21f-83b091563db0",
+                "_index": ".kibana",
+                "_score": 0.9614112,
+                "_source": {
+                    "search": {
+                        "columns": [
+                            "host",
+                            "program",
+                            "log_level",
+                            "_id",
+                            "log_level_no_orig",
+                            "message"
+                        ],
+                        "description": "",
+                        "hits": 0,
+                        "kibanaSavedObjectMeta": {
+                            "searchSourceJSON": "{\"index\":\"5ea54630-2c47-11e8-ad58-af701a8fdecd\",\"query\":{\"query\":{\"match_all\":{}},\"language\":\"lucene\"},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"tags\",\"negate\":true,\"value\":\"monitoring\",\"type\":\"phrase\"},\"query\":{\"match\":{\"tags\":{\"query\":\"monitoring\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"program\",\"negate\":true,\"value\":\"webserver-access\",\"type\":\"phrase\"},\"query\":{\"match\":{\"program\":{\"query\":\"webserver-access\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"index\":\"logstash-*\",\"key\":\"host\",\"negate\":false,\"value\":\"host1\",\"type\":\"phrase\"},\"query\":{\"match\":{\"host\":{\"query\":\"host1\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"highlightAll\":true,\"version\":true}"
+                        },
+                        "sort": [
+                            "@timestamp",
+                            "desc"
+                        ],
+                        "title": "Dummy saved search 1",
+                        "version": 1
+                    },
+                    "type": "search",
+                    "updated_at": "2018-02-22T09:48:04.118Z"
+                },
+                "_type": "doc"
+            },
+            {
+                "_id": "search:Syslog",
+                "_index": ".kibana",
+                "_score": 0.9614112,
+                "_source": {
+                    "search": {
+                        "columns": [
+                            "host",
+                            "program",
+                            "message"
+                        ],
+                        "description": "",
+                        "hits": 0,
+                        "kibanaSavedObjectMeta": {
+                            "searchSourceJSON": "{\"index\":\"5ea54630-2c47-11e8-ad58-af701a8fdecd\",\"query\":{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\",\"default_field\":\"*\"}},\"language\":\"lucene\"},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"tags\",\"negate\":true,\"value\":\"monitoring\",\"type\":\"phrase\",\"params\":{\"query\":\"monitoring\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"tags\":{\"query\":\"monitoring\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"logstash-*\",\"key\":\"program\",\"negate\":true,\"value\":\"webserver-access\",\"type\":\"phrase\",\"params\":{\"query\":\"webserver-access\",\"type\":\"phrase\"}},\"query\":{\"match\":{\"program\":{\"query\":\"webserver-access\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"highlightAll\":true,\"version\":true}"
+                        },
+                        "sort": [
+                            "@timestamp",
+                            "desc"
+                        ],
+                        "title": "Syslog",
+                        "version": 1
+                    },
+                    "type": "search",
+                    "updated_at": "2018-03-26T13:56:59.074Z"
+                },
+                "_type": "doc"
+            }
+        ],
+        "max_score": 0.9614112,
+        "total": 19
+    },
+    "timed_out": false,
+    "took": 1
+}

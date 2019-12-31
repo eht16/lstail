@@ -1,0 +1,88 @@
+{
+    "_shards": {
+        "failed": 0,
+        "successful": 1,
+        "total": 1
+    },
+    "hits": {
+        "hits": [
+            {
+                "_id": "Kibana saved search 1 empty filters",
+                "_index": ".kibana",
+                "_score": 1.0,
+                "_source": {
+                    "columns": [
+                        "fromhost",
+                        "requestHost",
+                        "vHostPort",
+                        "requestUrl"
+                    ],
+                    "description": "",
+                    "hits": 0,
+                    "kibanaSavedObjectMeta": {
+                        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"type:some_type AND environment:production\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+                    },
+                    "sort": [
+                        "@timestamp",
+                        "desc"
+                    ],
+                    "title": "Kibana saved search 1",
+                    "version": 1
+                },
+                "_type": "search"
+            },
+            {
+                "_id": "S\u00fcslogging",
+                "_index": ".kibana",
+                "_score": 1.0,
+                "_source": {
+                    "columns": [
+                        "fromhost",
+                        "programname",
+                        "severity",
+                        "message"
+                    ],
+                    "description": "",
+                    "hits": 0,
+                    "kibanaSavedObjectMeta": {
+                        "searchSourceJSON": "stripped"
+                    },
+                    "sort": [
+                        "@timestamp",
+                        "desc"
+                    ],
+                    "title": "S\u00fcslogging",
+                    "version": 1
+                },
+                "_type": "search"
+            },
+            {
+                "_id": "Kibana Saved Search 2 - with filters",
+                "_index": ".kibana",
+                "_score": 1.0,
+                "_source": {
+                    "columns": [
+                        "fromhost",
+                        "programname"
+                    ],
+                    "description": "",
+                    "hits": 0,
+                    "kibanaSavedObjectMeta": {
+                        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"NOT serviceProtocol:http\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"logstash-*\",\"key\":\"applicationName\",\"value\":\"Webserver\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"applicationName\":{\"query\":\"Webserver\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":false,\"index\":\"logstash-*\",\"key\":\"environment\",\"value\":\"prod\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"environment\":{\"query\":\"prod\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":false,\"index\":\"logstash-*\",\"key\":\"type\",\"value\":\"web\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"type\":{\"query\":\"web\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+                    },
+                    "sort": [
+                        "@timestamp",
+                        "desc"
+                    ],
+                    "title": "Kibana Saved Search 2",
+                    "version": 1
+                },
+                "_type": "search"
+            }
+        ],
+        "max_score": 1.0,
+        "total": 30
+    },
+    "timed_out": false,
+    "took": 2
+}

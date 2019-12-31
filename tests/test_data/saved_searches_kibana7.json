@@ -1,0 +1,167 @@
+{
+    "_shards": {
+        "failed": 0,
+        "skipped": 0,
+        "successful": 1,
+        "total": 1
+    },
+    "hits": {
+        "hits": [
+            {
+                "_id": "search:Parse-Failures",
+                "_index": ".kibana_4",
+                "_score": 1.8075079,
+                "_source": {
+                    "migrationVersion": {
+                        "search": "7.0.0"
+                    },
+                    "references": [
+                        {
+                            "id": "0dda5e90-2c54-11e8-a253-85a217d89834",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+                            "type": "index-pattern"
+                        },
+                        {
+                            "id": "logstash-*",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.filter[0].meta.index",
+                            "type": "index-pattern"
+                        }
+                    ],
+                    "search": {
+                        "columns": [
+                            "tags",
+                            "logsource",
+                            "program",
+                            "message"
+                        ],
+                        "description": "",
+                        "hits": 0,
+                        "kibanaSavedObjectMeta": {
+                            "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":\"Parse Failures\",\"disabled\":false,\"key\":\"query\",\"negate\":false,\"value\":\"{\\\"bool\\\":{\\\"filter\\\":{\\\"terms\\\":{\\\"tags\\\":[\\\"_grokparsefailure\\\",\\\"_jsonparsefailure\\\",\\\"_log_level_normalization_failed\\\"]}}}}\",\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.filter[0].meta.index\"},\"query\":{\"bool\":{\"filter\":{\"terms\":{\"tags\":[\"_grokparsefailure\",\"_jsonparsefailure\",\"_log_level_normalization_failed\"]}}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"language\":\"lucene\"},\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+                        },
+                        "sort": [
+                            "@timestamp",
+                            "desc"
+                        ],
+                        "title": "Parse Failures",
+                        "version": 1
+                    },
+                    "type": "search",
+                    "updated_at": "2018-03-20T15:45:47.659Z"
+                },
+                "_type": "_doc"
+            },
+            {
+                "_id": "search:Webserver",
+                "_index": ".kibana_4",
+                "_score": 1.8075079,
+                "_source": {
+                    "migrationVersion": {
+                        "search": "7.0.0"
+                    },
+                    "references": [
+                        {
+                            "id": "0dda5e90-2c54-11e8-a253-85a217d89834",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+                            "type": "index-pattern"
+                        },
+                        {
+                            "id": "logstash-*",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.filter[0].meta.index",
+                            "type": "index-pattern"
+                        }
+                    ],
+                    "search": {
+                        "columns": [
+                            "http_host",
+                            "http_clientip",
+                            "http_verb",
+                            "message",
+                            "http_code"
+                        ],
+                        "description": "",
+                        "hits": 0,
+                        "kibanaSavedObjectMeta": {
+                            "searchSourceJSON": "{\"filter\":[{\"meta\":{\"negate\":false,\"key\":\"program\",\"value\":\"webserver\",\"disabled\":false,\"alias\":null,\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.filter[0].meta.index\"},\"query\":{\"match\":{\"program\":{\"query\":\"webserver\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"language\":\"lucene\"},\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+                        },
+                        "sort": [
+                            "@timestamp",
+                            "desc"
+                        ],
+                        "title": "Webserver",
+                        "version": 1
+                    },
+                    "type": "search",
+                    "updated_at": "2018-03-20T15:45:47.634Z"
+                },
+                "_type": "_doc"
+            },
+            {
+                "_id": "search:aeca07c0-9a39-11e9-af25-d506accf8611",
+                "_index": ".kibana_4",
+                "_score": 1.8075079,
+                "_source": {
+                    "migrationVersion": {
+                        "search": "7.0.0"
+                    },
+                    "references": [
+                        {
+                            "id": "0dda5e90-2c54-11e8-a253-85a217d89834",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+                            "type": "index-pattern"
+                        },
+                        {
+                            "id": "logstash-*",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.filter[0].meta.index",
+                            "type": "index-pattern"
+                        },
+                        {
+                            "id": "0dda5e90-2c54-11e8-a253-85a217d89834",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.filter[1].meta.index",
+                            "type": "index-pattern"
+                        },
+                        {
+                            "id": "0dda5e90-2c54-11e8-a253-85a217d89834",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.filter[2].meta.index",
+                            "type": "index-pattern"
+                        },
+                        {
+                            "id": "0dda5e90-2c54-11e8-a253-85a217d89834",
+                            "name": "kibanaSavedObjectMeta.searchSourceJSON.filter[3].meta.index",
+                            "type": "index-pattern"
+                        }
+                    ],
+                    "search": {
+                        "columns": [
+                            "http_clientip",
+                            "http_verb",
+                            "message",
+                            "http_code"
+                        ],
+                        "description": "",
+                        "hits": 0,
+                        "kibanaSavedObjectMeta": {
+                            "searchSourceJSON": "{\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"key\":\"program\",\"negate\":false,\"params\":{\"query\":\"webserver\"},\"type\":\"phrase\",\"value\":\"webserver\",\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.filter[0].meta.index\"},\"query\":{\"match\":{\"program\":{\"query\":\"webserver\",\"type\":\"phrase\"}}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"key\":\"http_code\",\"negate\":true,\"params\":[\"404\",\"200\",\"301\",\"304\",\"206\",\"204\"],\"type\":\"phrases\",\"value\":\"404, 200, 301, 304, 206, 204\",\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.filter[1].meta.index\"},\"query\":{\"bool\":{\"minimum_should_match\":1,\"should\":[{\"match_phrase\":{\"http_code\":\"404\"}},{\"match_phrase\":{\"http_code\":\"200\"}},{\"match_phrase\":{\"http_code\":\"301\"}},{\"match_phrase\":{\"http_code\":\"304\"}},{\"match_phrase\":{\"http_code\":\"206\"}},{\"match_phrase\":{\"http_code\":\"204\"}}]}}},{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":true,\"key\":\"http_host\",\"negate\":false,\"params\":{\"query\":\"www.geany.org\"},\"type\":\"phrase\",\"value\":\"www.geany.org\",\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.filter[2].meta.index\"},\"query\":{\"match\":{\"http_host\":{\"query\":\"www.geany.org\",\"type\":\"phrase\"}}}},{\"meta\":{\"alias\":null,\"negate\":false,\"type\":\"phrase\",\"key\":\"http_code\",\"value\":\"404\",\"params\":{\"query\":\"404\"},\"disabled\":false,\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.filter[3].meta.index\"},\"query\":{\"match\":{\"http_code\":{\"query\":\"404\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"language\":\"lucene\",\"query\":\"*\"},\"highlightAll\":true,\"version\":true,\"indexRefName\":\"kibanaSavedObjectMeta.searchSourceJSON.index\"}"
+                        },
+                        "sort": [
+                            "@timestamp",
+                            "desc"
+                        ],
+                        "title": "Webserver 404",
+                        "version": 1
+                    },
+                    "type": "search",
+                    "updated_at": "2019-06-29T06:46:54.780Z"
+                },
+                "_type": "_doc"
+            }
+        ],
+        "max_score": 1.8075079,
+        "total": {
+            "relation": "eq",
+            "value": 3
+        }
+    },
+    "timed_out": false,
+    "took": 3
+}
