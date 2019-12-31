@@ -31,6 +31,7 @@ from tests.base import BaseTestCase, mock
 
 COLUMN_TIMESTAMP_NAMES = ['timestamp', '@timestamp', 'request_time']
 LOG_DOCUMENT_COLUMN_NAMES = ['host', 'message']
+LOG_DOCUMENT_COLUMN_HOST_PADDING = 12
 LOG_DOCUMENT_COLUMNS = OrderedDict({
     LSTAIL_DEFAULT_FIELD_TIMESTAMP: Column(
         names=COLUMN_TIMESTAMP_NAMES,
@@ -38,7 +39,11 @@ LOG_DOCUMENT_COLUMNS = OrderedDict({
         display=True,
         padding=26),
     'level': Column(names=[], display=False),
-    'host': Column(names=['fqdn'], color='_c_yellow', display=True, padding='12'),
+    'host': Column(
+        names=['fqdn'],
+        color='_c_yellow',
+        display=True,
+        padding=LOG_DOCUMENT_COLUMN_HOST_PADDING),
     'message': Column(names=[], color='_c_magenta', display=True, padding='15'),
     'nested.test.column': Column(names=['nested.alias']),
 })
@@ -169,10 +174,11 @@ class LoggerTest(BaseTestCase):
             with mock.patch.object(LstailLogger, '_print_document', new=fake_print_document):
                 logger.log_document(LOG_DOCUMENT_TEST_DOCUMENT)
 
-                expected_output = '{}    {} Unparseable document: ValueError: {}:'.format(
+                expected_output = '{}    {:{padding}} Unparseable document: ValueError: {}:'.format(
                     test_datetime.strftime(LOG_DOCUMENT_CONFIG.format.timestamp)[:-3],
                     getfqdn(),
-                    fake_exc_msg)
+                    fake_exc_msg,
+                    padding=LOG_DOCUMENT_COLUMN_HOST_PADDING)
                 output = sys.stdout.getvalue().strip()  # pylint: disable=no-member
                 self.assertTrue(output.startswith(expected_output))
 
