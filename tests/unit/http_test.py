@@ -42,7 +42,7 @@ class HttpTest(BaseTestCase):
         def mocked_add_header(key, value):
             headers[key] = value
 
-        http_client = ElasticsearchRequestController(None, None, None, None)
+        http_client = ElasticsearchRequestController(None, None, None, False, None)
         http_client._user_agent = 'Dummy User-Agent for testing'
 
         # simple GET request
@@ -114,7 +114,7 @@ class HttpTest(BaseTestCase):
 
     # ----------------------------------------------------------------------
     def test_parse_response(self):
-        http_client = ElasticsearchRequestController(None, None, None, None)
+        http_client = ElasticsearchRequestController(None, None, None, False, None)
 
         # simple text
         response_bytes_raw = mock.Mock()
@@ -152,7 +152,7 @@ class HttpTest(BaseTestCase):
 
     # ----------------------------------------------------------------------
     def test_get_encoding_from_response(self):
-        http_client = ElasticsearchRequestController(None, None, None, None)
+        http_client = ElasticsearchRequestController(None, None, None, False, None)
 
         response_raw = mock.Mock()
         # headers.get_charset() returns something, so we expect something
@@ -193,7 +193,7 @@ class HttpTest(BaseTestCase):
     def test_request_http_error(self):
         test_servers = deque(TEST_SERVERS)
         http_client = ElasticsearchRequestController(
-            test_servers, TEST_TIMEOUT, None, self._mocked_logger)
+            test_servers, TEST_TIMEOUT, None, False, self._mocked_logger)
 
         # expect HttpRetryError on URLError
         with mock.patch.object(http_client, '_url_opener') as mock_url_opener:
@@ -219,7 +219,7 @@ class HttpTest(BaseTestCase):
 
         test_servers = deque(TEST_SERVERS)
         http_client = ElasticsearchRequestController(
-            test_servers, TEST_TIMEOUT, None, self._mocked_logger)
+            test_servers, TEST_TIMEOUT, None, False, self._mocked_logger)
         # pre-flight check, basically cannot fail but won't hurt
         self.assertEqual(http_client._servers[0], TEST_SERVER_1)
 
@@ -239,6 +239,7 @@ class HttpTest(BaseTestCase):
         http_client = ElasticsearchRequestController(
             TEST_SERVERS, TEST_TIMEOUT,
             verify_ssl_certificates=True,
+            debug=False,
             logger=self._mocked_logger)
 
         # normal
@@ -273,6 +274,7 @@ class HttpTest(BaseTestCase):
         http_client = ElasticsearchRequestController(
             TEST_SERVERS, TEST_TIMEOUT,
             verify_ssl_certificates=True,
+            debug=False,
             logger=self._mocked_logger)
 
         # GET
@@ -296,6 +298,7 @@ class HttpTest(BaseTestCase):
         http_client = ElasticsearchRequestController(
             TEST_SERVERS, TEST_TIMEOUT,
             verify_ssl_certificates=True,
+            debug=False,
             logger=self._mocked_logger)
 
         # simulate timeout
@@ -318,6 +321,7 @@ class HttpTest(BaseTestCase):
         http_client = ElasticsearchRequestController(
             TEST_SERVERS, TEST_TIMEOUT,
             verify_ssl_certificates=True,
+            debug=False,
             logger=self._mocked_logger)
 
         # simple exception
@@ -344,6 +348,7 @@ class HttpTest(BaseTestCase):
         http_client = ElasticsearchRequestController(
             TEST_SERVERS, TEST_TIMEOUT,
             verify_ssl_certificates=True,
+            debug=False,
             logger=self._mocked_logger)
 
         begin_date_time = datetime(2018, 2, 22, 22, 22, 22)

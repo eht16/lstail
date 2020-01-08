@@ -101,6 +101,7 @@ class LogstashReader:
             self._config.servers,
             timeout=self._config.timeout,
             verify_ssl_certificates=self._config.verify_ssl_certificates,
+            debug=self._config.debug,
             logger=self._logger)
 
     # ----------------------------------------------------------------------

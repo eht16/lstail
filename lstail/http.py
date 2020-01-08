@@ -54,10 +54,11 @@ class PreemptiveBasicAuthHandler(BaseHandler):
 class ElasticsearchRequestController:
 
     # ----------------------------------------------------------------------
-    def __init__(self, servers, timeout, verify_ssl_certificates, logger):
+    def __init__(self, servers, timeout, verify_ssl_certificates, debug, logger):
         self._servers = servers
         self._timeout = timeout
         self._verify_ssl_certificates = verify_ssl_certificates
+        self._debug = debug
         self._logger = logger
         self._user_agent = None
         self._url_opener = None
@@ -153,13 +154,14 @@ class ElasticsearchRequestController:
         finally:
             call_duration = self._calculate_call_duration(begin_date)
             http_method = 'POST' if data else http_method
+            memory_usage = ' - {:0.2f} MB'.format(get_memory_usage()) if self._debug else ''
             self._logger.debug(
-                'Querying server "{}" took {:0.3f} seconds ({} {}) - {:0.2f}',
+                'Querying server "{}" took {:0.3f} seconds ({} {}){memory_usage}',
                 server.name,
                 call_duration,
                 http_method,
                 path,
-                get_memory_usage())
+                memory_usage=memory_usage)
 
         return response
 
