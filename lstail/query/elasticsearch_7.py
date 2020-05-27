@@ -55,17 +55,29 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
         response = self._http_handler.request(url, data=query_json)
 
         # did we find it?
-        if not response['hits']['total']['value']:
-            message = 'Kibana saved search "{}" not found!'.format(self._saved_search_title)
-            raise KibanaSavedSearchNotFoundError(message)
+        self._assert_saved_search_found(response)
 
         # take the first hit, as we sorted by _score DESC, this should be the best match
         best_match = response['hits']['hits'][0]
         self._kibana_search_references = best_match['_source']['references']
         self._kibana_search = best_match['_source']['search']
+        self._assert_saved_search_has_index()
+
         # tell the logger which columns to use
         self._logger.update_display_columns(self._kibana_search['columns'])
         self._logger.debug('Using Kibana saved search "{}"'.format(self._kibana_search['title']))
+
+    # ----------------------------------------------------------------------
+    def _assert_saved_search_found(self, response):
+        if not response['hits']['total']['value']:
+            message = 'Kibana saved search "{}" not found!'.format(self._saved_search_title)
+            raise KibanaSavedSearchNotFoundError(message)
+
+    # ----------------------------------------------------------------------
+    def _assert_saved_search_has_index(self):
+        if not self._kibana_search_references:
+            message = 'Kibana saved search "{}" has no index set!'.format(self._saved_search_title)
+            raise KibanaSavedSearchNotFoundError(message)
 
     # ----------------------------------------------------------------------
     def _get_query_from_search_source(self):

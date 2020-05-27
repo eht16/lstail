@@ -50,9 +50,7 @@ class ElasticSearch6QueryBuilder(BaseQueryBuilder):
         response = self._http_handler.request(url, data=query_json)
 
         # did we find it?
-        if not response['hits']['total']:
-            message = 'Kibana saved search "{}" not found!'.format(self._saved_search_title)
-            raise KibanaSavedSearchNotFoundError(message)
+        self._assert_saved_search_found(response)
 
         # take the first hit, as we sorted by _score DESC, this should be the best match
         best_match = response['hits']['hits'][0]
@@ -60,6 +58,12 @@ class ElasticSearch6QueryBuilder(BaseQueryBuilder):
         # tell the logger which columns to use
         self._logger.update_display_columns(self._kibana_search['columns'])
         self._logger.debug('Using Kibana saved search "{}"'.format(self._kibana_search['title']))
+
+    # ----------------------------------------------------------------------
+    def _assert_saved_search_found(self, response):
+        if not response['hits']['total']:
+            message = 'Kibana saved search "{}" not found!'.format(self._saved_search_title)
+            raise KibanaSavedSearchNotFoundError(message)
 
     # ----------------------------------------------------------------------
     def _get_query_from_search_source(self):
