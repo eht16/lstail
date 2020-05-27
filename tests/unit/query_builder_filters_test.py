@@ -286,6 +286,25 @@ class QueryBuilderCustomSearchTest(BaseTestCase):
             self.assertEqual(result, [])
 
     # ----------------------------------------------------------------------
+    def test_filter_v7_phrase_without_value(self):
+        query_builder = self._factor_query_builder(ElasticSearch7QueryBuilder)
+
+        kibana_saved_search_filter_phrase = {'$state': {'store': 'appState'},
+            'meta': {'alias': None, 'disabled': False, 'indexRefName': 'foo', 'key': 'action',
+                     'negate': False, 'params': {'query': 'test'},
+                     'type': 'phrase'},
+            'query': {'match': {'action': {'query': 'test', 'type': 'phrase'}}}}
+        expected_result = [{'match_phrase': {'action': {'query': 'test'}}}]
+        # test
+        with mock.patch.object(query_builder, '_filter', new=kibana_saved_search_filter_phrase):
+            query_builder._setup_filter_mapping()
+            query_builder._factor_filter()
+            result = query_builder._filters[FILTER_GROUP_MUST]
+            self.assertEqual(result, expected_result)
+            result = query_builder._filters[FILTER_GROUP_MUST_NOT]
+            self.assertEqual(result, [])
+
+    # ----------------------------------------------------------------------
     def test_filter_v7_empty(self):
         query_builder = self._factor_query_builder(ElasticSearch7QueryBuilder)
 

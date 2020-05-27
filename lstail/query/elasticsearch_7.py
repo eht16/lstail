@@ -92,13 +92,22 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
 
     # ----------------------------------------------------------------------
     def _factor_filter_query_for_type_phrase(self):
-        return {
-            "match_phrase": {
-                self._filter['meta']['key']: {
-                    "query": self._filter['meta']['value']
+        if 'value' in self._filter['meta']:
+            return {
+                "match_phrase": {
+                    self._filter['meta']['key']: {
+                        "query": self._filter['meta']['value']
+                    }
                 }
             }
-        }
+        elif 'params' in self._filter['meta']:
+            return {
+                "match_phrase": {
+                    self._filter['meta']['key']: self._filter['meta']['params']
+                }
+            }
+        else:
+            raise ValueError('No suitable filter query found in filter: {}'.format(self._filter))
 
     # ----------------------------------------------------------------------
     def _factor_filter_query_for_type_phrases(self):
