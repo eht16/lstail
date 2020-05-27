@@ -77,6 +77,10 @@ class BaseQueryBuilder:
         # sometimes Kibana saves the main query as simple Lucene search string,
         # sometimes as query object, so if it is string, factor the query manually else use it
         if isinstance(query, (bytes, str)):
+            if not query:
+                # if there is no query string, search for wildcard to get any results
+                query = '*'
+
             self._base_query = {
                 "query_string": {
                     "query": query,
