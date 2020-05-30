@@ -12,7 +12,7 @@ from lstail.dto.parser import ParserConfiguration
 
 
 ########################################################################
-class Configuration():  # pylint: disable=too-few-public-methods,too-many-instance-attributes
+class Configuration:  # pylint: disable=too-few-public-methods,too-many-instance-attributes
 
     # ----------------------------------------------------------------------
     def __init__(self):

@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 
 ########################################################################
-class DisplayConfiguration():  # pylint: disable=too-few-public-methods
+class DisplayConfiguration:  # pylint: disable=too-few-public-methods
 
     # ----------------------------------------------------------------------
     def __init__(self):

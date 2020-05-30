@@ -7,7 +7,7 @@ from copy import deepcopy
 
 
 ########################################################################
-class Query():
+class Query:
 
     # ----------------------------------------------------------------------
     def __init__(self, index, query, time_field_name):

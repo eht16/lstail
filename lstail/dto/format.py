@@ -5,7 +5,7 @@
 
 
 ########################################################################
-class FormatConfiguration():  # pylint: disable=too-few-public-methods
+class FormatConfiguration:  # pylint: disable=too-few-public-methods
 
     # ----------------------------------------------------------------------
     def __init__(self):

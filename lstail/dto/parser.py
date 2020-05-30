@@ -5,7 +5,7 @@
 
 
 ########################################################################
-class ParserConfiguration():  # pylint: disable=too-few-public-methods
+class ParserConfiguration:  # pylint: disable=too-few-public-methods
 
     # ----------------------------------------------------------------------
     def __init__(self):

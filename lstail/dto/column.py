@@ -5,7 +5,7 @@
 
 
 ########################################################################
-class Column():  # pylint: disable=too-few-public-methods
+class Column:  # pylint: disable=too-few-public-methods
 
     # ----------------------------------------------------------------------
     def __init__(self, names=None, color=None, display=None, padding=None):

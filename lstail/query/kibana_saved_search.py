@@ -16,7 +16,7 @@ from lstail.util.http import detect_elasticsearch_version
 
 
 ########################################################################
-class ListKibanaSavedSearchesController():
+class ListKibanaSavedSearchesController:
 
     # ----------------------------------------------------------------------
     def __init__(self, config, http_handler, logger):

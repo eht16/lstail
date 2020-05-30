@@ -5,7 +5,7 @@
 
 
 ########################################################################
-class Server():  # pylint: disable=too-few-public-methods
+class Server:  # pylint: disable=too-few-public-methods
 
     # ----------------------------------------------------------------------
     def __init__(self):
