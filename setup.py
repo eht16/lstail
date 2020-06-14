@@ -42,7 +42,7 @@ setup(
     },
     keywords='logging logs logstash query tail log-viewer cli',
     python_requires='>=3.5',
-    setup_requires=['flake8', 'isort'],
+    install_requires=['prompt-toolkit'],
     packages=['lstail'],
     include_package_data=True,
     entry_points={

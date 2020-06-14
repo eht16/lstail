@@ -7,6 +7,8 @@ from json import load
 import logging
 import unittest
 
+from prompt_toolkit.completion import Completion
+
 from lstail.dto.column import Column
 from lstail.dto.server import Server
 
@@ -30,6 +32,9 @@ class BaseTestCase(unittest.TestCase):
         # compare Server objects
         self.addTypeEqualityFunc(Server, self._compare_server_object)
 
+        # compare prompt_toolkit.completion.Completion objects
+        self.addTypeEqualityFunc(Completion, self._compare_completion_object)
+
         # provide a mocked logger for easy use
         self._mocked_logger = mock.MagicMock(spec=logging)
 
@@ -47,6 +52,16 @@ class BaseTestCase(unittest.TestCase):
         self.assertEqual(first.username, second.username, msg=msg)
         self.assertEqual(first.password, second.password, msg=msg)
         self.assertEqual(first.headers, second.headers, msg=msg)
+
+    # ----------------------------------------------------------------------
+    def _compare_completion_object(self, first, second, msg=None):
+        self.assertIsInstance(first, Completion, msg=msg)
+        self.assertIsInstance(second, Completion, msg=msg)
+
+        self.assertEqual(first.text, second.text, msg=msg)
+        self.assertEqual(first.start_position, second.start_position, msg=msg)
+        self.assertEqual(first.display_text, second.display_text, msg=msg)
+        self.assertEqual(first.display_meta_text, second.display_meta_text, msg=msg)
 
     # ----------------------------------------------------------------------
     def _get_test_data(self, name):

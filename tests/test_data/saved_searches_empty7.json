@@ -1,0 +1,19 @@
+{
+    "_shards": {
+        "failed": 0,
+        "skipped": 0,
+        "successful": 1,
+        "total": {
+            "relation": "eq",
+            "value": 1
+        }
+    },
+    "hits": {
+        "hits": [],
+        "max_score": 0,
+        "total": {
+            "relation": "eq",
+            "value": 0
+        }
+    }
+}

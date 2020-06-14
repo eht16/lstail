@@ -14,6 +14,7 @@ from lstail.constants import ELASTICSEARCH_TIMESTAMP_FORMAT, VERSION
 from lstail.error import StopReaderLoop
 from lstail.http import ElasticsearchRequestController
 from lstail.logger import LstailLogger
+from lstail.prompt import KibanaSavedSearchSelectPrompt
 from lstail.query.factory import QueryBuilderFactory
 from lstail.query.kibana_saved_search import ListKibanaSavedSearchesController
 from lstail.util.timestamp import (
@@ -47,11 +48,7 @@ class LogstashReader:
         self._setup_logger()
         self._setup_http_handler()
 
-        controller = ListKibanaSavedSearchesController(
-            self._config,
-            self._http_handler,
-            self._logger)
-        saved_searches = controller.list()
+        saved_searches = self._get_kibana_saved_searches()
         if not saved_searches:
             print('No saved searches found in Kibana', file=self._output)
         else:
@@ -61,11 +58,20 @@ class LogstashReader:
                     file=self._output)
 
     # ----------------------------------------------------------------------
+    def _get_kibana_saved_searches(self):
+        controller = ListKibanaSavedSearchesController(
+            self._config,
+            self._http_handler,
+            self._logger)
+        return controller.list()
+
+    # ----------------------------------------------------------------------
     def read(self):
         self._setup_logger()
         self._setup_http_handler()
         self._setup_timezone()
         self._setup_initial_time_range()
+        self._prompt_for_kibana_saved_search_selection_if_necessary()
         self._factor_query_builder()
         self._build_base_query()
         self._print_header()
@@ -116,6 +122,20 @@ class LogstashReader:
 
         self._last_timestamp = parse_and_convert_time_range_to_start_date_time(
             self._config.initial_time_range)
+
+    # ----------------------------------------------------------------------
+    def _prompt_for_kibana_saved_search_selection_if_necessary(self):
+        if self._config.kibana.saved_search == '-' or self._config.select_kibana_saved_search:
+            self._prompt_for_kibana_saved_search_selection()
+
+    # ----------------------------------------------------------------------
+    def _prompt_for_kibana_saved_search_selection(self):
+        saved_searches = self._get_kibana_saved_searches()
+
+        kibana_saved_search_select_prompt = KibanaSavedSearchSelectPrompt(saved_searches)
+        selected_saved_search = kibana_saved_search_select_prompt.prompt()
+        # overwrite previously set saved search title
+        self._config.kibana.saved_search = selected_saved_search
 
     # ----------------------------------------------------------------------
     def _factor_query_builder(self):

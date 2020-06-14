@@ -110,3 +110,51 @@ class LogstashReaderTest(BaseTestCase):
             # days=1 is the default if the config setting is missing
             expected_end_date_time = end_date_time - timedelta(days=1)
             self.assertEqual(reader._last_timestamp, expected_end_date_time)
+
+    # ----------------------------------------------------------------------
+    @mock.patch.object(LogstashReader, '_prompt_for_kibana_saved_search_selection')
+    def test_prompt_for_kibana_saved_search_selection_if_necessary_positive_1(self, mock_prompt):
+        config = deepcopy(TEST_CONFIG)
+        config.kibana.saved_search = 'test'
+        config.select_kibana_saved_search = True
+        reader = LogstashReader(config)
+        # test
+        reader._prompt_for_kibana_saved_search_selection_if_necessary()
+        # check
+        mock_prompt.assert_called_once()
+
+    # ----------------------------------------------------------------------
+    @mock.patch.object(LogstashReader, '_prompt_for_kibana_saved_search_selection')
+    def test_prompt_for_kibana_saved_search_selection_if_necessary_positive_2(self, mock_prompt):
+        config = deepcopy(TEST_CONFIG)
+        config.kibana.saved_search = '-'
+        config.select_kibana_saved_search = False
+        reader = LogstashReader(config)
+        # test
+        reader._prompt_for_kibana_saved_search_selection_if_necessary()
+        # check
+        mock_prompt.assert_called_once()
+
+    # ----------------------------------------------------------------------
+    @mock.patch.object(LogstashReader, '_prompt_for_kibana_saved_search_selection')
+    def test_prompt_for_kibana_saved_search_selection_if_necessary_negative_1(self, mock_prompt):
+        config = deepcopy(TEST_CONFIG)
+        config.kibana.saved_search = 'test'
+        config.select_kibana_saved_search = False
+        reader = LogstashReader(config)
+        # test
+        reader._prompt_for_kibana_saved_search_selection_if_necessary()
+        # check
+        mock_prompt.assert_not_called()
+
+    # ----------------------------------------------------------------------
+    @mock.patch.object(LogstashReader, '_prompt_for_kibana_saved_search_selection')
+    def test_prompt_for_kibana_saved_search_selection_if_necessary_negative_2(self, mock_prompt):
+        config = deepcopy(TEST_CONFIG)
+        config.kibana.saved_search = None
+        config.select_kibana_saved_search = None
+        reader = LogstashReader(config)
+        # test
+        reader._prompt_for_kibana_saved_search_selection_if_necessary()
+        # check
+        mock_prompt.assert_not_called()

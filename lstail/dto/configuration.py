@@ -28,6 +28,7 @@ class Configuration:  # pylint: disable=too-few-public-methods,too-many-instance
         self.follow = None
         self.verbose = None
         self.debug = None
+        self.select_kibana_saved_search = None
 
         self.servers = deque()
         self.kibana = KibanaConfiguration()

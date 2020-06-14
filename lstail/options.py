@@ -125,7 +125,14 @@ class LstailArgumentParser:
             '--saved-search',
             dest='kibana_saved_search',
             metavar='NAME',
-            help='Saved search title as stored in Kibana')
+            help='Saved search title as stored in Kibana ("-" to select from a list)')
+
+        self._argument_parser.add_argument(
+            '--select-saved-search',
+            dest='select_kibana_saved_search',
+            action='store_true',
+            help='Interactively select a saved search from a list',
+            default=False)
 
     # ----------------------------------------------------------------------
     def _parse_arguments(self):

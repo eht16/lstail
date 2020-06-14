@@ -7,7 +7,7 @@ Command line options
 .. code-block:: console
 
     usage: lstail [-h] [-V] [-d] [-v] [-c FILE] [-f] [-l] [-H] [--csv]
-                  [-n NUM] [-q QUERY] [-r RANGE] [-s NAME]
+                  [-n NUM] [-q QUERY] [-r RANGE] [-s NAME] [--select-saved-search]
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -30,6 +30,9 @@ Command line options
                             minutes(m)/hours(h)/days(d)
       -s NAME, --saved-search NAME
                             Saved search title as stored in Kibana
+                            ("-" to select from a list)
+      --select-saved-search
+                            Interactively select a saved search from a list
 
 
 Examples

@@ -62,6 +62,10 @@ class OptionsTest(BaseTestCase):
         self._test_flag('l', 'list-saved-searches', 'kibana_list_saved_searches')
 
     # ----------------------------------------------------------------------
+    def test_flag_select_saved_search(self):
+        self._test_flag(None, 'select-saved-search', 'select_kibana_saved_search')
+
+    # ----------------------------------------------------------------------
     def test_option_config_file(self):
         self._test_option('c', 'config', 'config_file_path', 'test config file path')
 

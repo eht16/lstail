@@ -185,6 +185,7 @@ class LstailConfigParser:
     # ----------------------------------------------------------------------
     def _override_config_options_from_command_line(self):
         self._config.follow = self._options.follow
+        self._config.select_kibana_saved_search = self._options.select_kibana_saved_search
         self._config.debug = self._options.debug
         self._config.verbose = self._config.verbose or self._options.verbose or self._config.debug
         self._config.no_header = self._config.no_header or self._options.no_header
