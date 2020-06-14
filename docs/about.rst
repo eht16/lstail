@@ -39,6 +39,15 @@ License
 ChangeLog
 ---------
 
+1.1.0 (Jun 14, 2020)
+++++++++++++++++++++
+
+  * Add interactive selection of saved searches
+  * Add default values in command line help output
+  * Properly handle saved search with phrase filters without a query value
+  * Fix errors when Kibana Saved Searches are missing index references
+
+
 1.0.0 (Dec 31, 2019)
 ++++++++++++++++++++
 
