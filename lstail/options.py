@@ -3,7 +3,7 @@
 # This software may be modified and distributed under the terms
 # of the MIT license.  See the LICENSE file for details.
 
-from argparse import ArgumentParser
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 
 
 ########################################################################
@@ -26,7 +26,7 @@ class LstailArgumentParser:
 
     # ----------------------------------------------------------------------
     def _init_argument_parser(self):
-        self._argument_parser = ArgumentParser()
+        self._argument_parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
         # mutually exclusive group for --lines and --range to support only one of them or none
         # but not both at once
         self._initial_query_exclusive_group = self._argument_parser.add_mutually_exclusive_group()
