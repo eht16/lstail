@@ -21,8 +21,9 @@ def get_column_color_key(column_color_name):
     column_color_key = factor_color_code(column_color_name)
     try:
         TERM_COLORS[column_color_key]
-    except KeyError:
-        raise KeyError('Invalid terminal color specification: "{}"'.format(column_color_name))
+    except KeyError as exc:
+        raise KeyError(
+            'Invalid terminal color specification: "{}"'.format(column_color_name)) from exc
     else:
         return column_color_key
 

@@ -24,7 +24,7 @@ class BaseTestCase(unittest.TestCase):
 
     # ----------------------------------------------------------------------
     def setUp(self):
-        super(BaseTestCase, self).setUp()
+        super().setUp()
 
         # compare Column objects
         self.addTypeEqualityFunc(Column, self._compare_column_object)

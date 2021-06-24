@@ -138,10 +138,10 @@ class HttpTest(BaseTestCase):
 
         # empty string response
         with mock.patch('lstail.http.LOG_ENCODING', 'utf-8'):
-            response_raw.read.return_value = ''
+            response_raw.read.return_value = b''
             decode_as_json = True
             result = http_client._parse_response(response_raw, decode_as_json)
-            self.assertEqual(result, '')
+            self.assertEqual(result, b'')
 
         # JSON, ISO encoding
         with mock.patch('lstail.http.LOG_ENCODING', 'iso-8859-15'):

@@ -113,6 +113,7 @@ class LstailArgumentParser:
             metavar='QUERY',
             help='Set/Overwrite the search query (use Lucene query syntax)')
 
+        # ~self._argument_parser.add_argument(
         self._initial_query_exclusive_group.add_argument(
             '-r',
             '--range',

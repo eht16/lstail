@@ -11,9 +11,8 @@ def get_memory_usage():
     mem_usage = dict(rss=0.0)
     proc_status = '/proc/%d/status' % getpid()
     try:
-        file_h = open(proc_status)
-        content = file_h.read()
-        file_h.close()
+        with open(proc_status) as file_h:
+            content = file_h.read()
     except IOError:
         return 0.0
     lines = content.strip().split('\n')

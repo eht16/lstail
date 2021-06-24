@@ -105,7 +105,7 @@ class ConfigTest(BaseTestCase):
 
     # ----------------------------------------------------------------------
     def setUp(self):
-        super(ConfigTest, self).setUp()
+        super().setUp()
 
         # full config read
         test_args = mock.Mock(

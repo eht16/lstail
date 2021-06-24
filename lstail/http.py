@@ -39,8 +39,8 @@ class PreemptiveBasicAuthHandler(BaseHandler):
             return req
 
         raw = '{}:{}'.format(user, password)
-        raw = raw.encode('utf-8')
-        auth = base64.b64encode(raw)
+        raw_bytes = raw.encode('utf-8')
+        auth = base64.b64encode(raw_bytes)
         auth = auth.decode()
         auth_header = 'Basic {}'.format(auth)
         auth_header = auth_header.strip()
@@ -150,7 +150,7 @@ class ElasticsearchRequestController:
             if status_code in NON_RETRYING_STATUS_CODES:
                 raise  # propagate the error to the caller if we don't retry
             # retry with next server from config for any other errors
-            raise HttpRetryError()
+            raise HttpRetryError() from exc
         finally:
             call_duration = self._calculate_call_duration(begin_date)
             http_method = 'POST' if data else http_method

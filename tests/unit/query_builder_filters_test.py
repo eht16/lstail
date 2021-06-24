@@ -10,7 +10,7 @@ from lstail.query.elasticsearch_7 import ElasticSearch7QueryBuilder
 from tests.base import BaseTestCase, mock
 
 
-# pylint: disable=protected-access,bad-continuation,too-many-public-methods
+# pylint: disable=protected-access,too-many-public-methods
 
 
 class QueryBuilderCustomSearchTest(BaseTestCase):

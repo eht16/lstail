@@ -30,11 +30,11 @@ class SafeMunch:
         try:
             # Throws exception if not in prototype chain
             return object.__getattribute__(self, key)
-        except AttributeError:
+        except AttributeError as exc:
             try:
                 return self._data[key]
             except KeyError:
-                raise AttributeError(key)
+                raise AttributeError(key) from exc
 
     # ----------------------------------------------------------------------
     def __setattr__(self, key, value):
@@ -45,8 +45,8 @@ class SafeMunch:
         except AttributeError:
             try:
                 self._data[key] = safe_munchify(value)
-            except Exception:
-                raise AttributeError(key)
+            except Exception as exc:
+                raise AttributeError(key) from exc
         else:
             object.__setattr__(self, key, value)
 
@@ -58,8 +58,8 @@ class SafeMunch:
         except AttributeError:
             try:
                 del self._data[key]
-            except KeyError:
-                raise AttributeError(key)
+            except KeyError as exc:
+                raise AttributeError(key) from exc
         else:
             object.__delattr__(self, key)
 
@@ -132,13 +132,13 @@ class DefaultSafeMunch(SafeMunch):
         else:
             default = None
 
-        super(DefaultSafeMunch, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.__default__ = default
 
     # ----------------------------------------------------------------------
     def __getattr__(self, key):
         try:
-            return super(DefaultSafeMunch, self).__getattr__(key)
+            return super().__getattr__(key)
         except AttributeError:
             return self.__default__
 
@@ -147,12 +147,12 @@ class DefaultSafeMunch(SafeMunch):
         if key == '__default__':
             return object.__setattr__(self, key, value)
 
-        return super(DefaultSafeMunch, self).__setattr__(key, value)
+        return super().__setattr__(key, value)
 
     # ----------------------------------------------------------------------
     def __getitem__(self, key):
         try:
-            return super(DefaultSafeMunch, self).__getitem__(key)
+            return super().__getitem__(key)
         except KeyError:
             return self.__default__
 

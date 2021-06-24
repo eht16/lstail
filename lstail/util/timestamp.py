@@ -17,14 +17,14 @@ def parse_and_convert_time_range_to_start_date_time(time_range):
     try:
         # try to parse the time range as integer, interpret the value as seconds
         seconds = value = int(time_range)
-    except TypeError:
-        raise InvalidTimeRangeFormatError(error_message)
-    except ValueError:
+    except TypeError as exc_type:
+        raise InvalidTimeRangeFormatError(error_message) from exc_type
+    except ValueError as exc_value:
         try:
             suffix = time_range[-1]
             value = int(time_range[:-1])
         except (ValueError, IndexError):
-            raise InvalidTimeRangeFormatError(error_message)
+            raise InvalidTimeRangeFormatError(error_message) from exc_value
         if suffix == 'd':
             seconds = value * 86400
         elif suffix == 'h':
@@ -32,7 +32,7 @@ def parse_and_convert_time_range_to_start_date_time(time_range):
         elif suffix == 'm':
             seconds = value * 60
         else:
-            raise InvalidTimeRangeFormatError(error_message)
+            raise InvalidTimeRangeFormatError(error_message) from exc_value
 
     if value < 0:
         raise InvalidTimeRangeFormatError(error_message)

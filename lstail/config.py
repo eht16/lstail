@@ -146,10 +146,10 @@ class LstailConfigParser:
     def _parse_column_color(self, column_color_name, section_name):
         try:
             return get_column_color_key(column_color_name)
-        except KeyError:
+        except KeyError as exc:
             raise RuntimeError(
                 'Invalid terminal color specification: "{}" in section "{}"'.format(
-                    column_color_name, section_name))
+                    column_color_name, section_name)) from exc
 
     # ----------------------------------------------------------------------
     def _parse_server_settings(self, section_name):
