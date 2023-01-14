@@ -21,6 +21,8 @@ TEST_ELASTICSEARCH_VERSIONS = (
     (ELASTICSEARCH_MAJOR_VERSION_7, 'elasticsearch_cluster_state_es7'),
     (ELASTICSEARCH_MAJOR_VERSION_6, 'elasticsearch_cluster_state_es6'),
     (ELASTICSEARCH_MAJOR_VERSION_2, 'elasticsearch_cluster_state_es2'),
+    (ELASTICSEARCH_MAJOR_VERSION_7, 'opensearch_cluster_state_es1'),
+    (ELASTICSEARCH_MAJOR_VERSION_7, 'opensearch_cluster_state_es2'),
 )
 
 

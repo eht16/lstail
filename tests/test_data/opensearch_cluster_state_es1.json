@@ -1,0 +1,17 @@
+{
+  "name" : "test-cluster-os2-n1",
+  "cluster_name" : "test-cluster-os2",
+  "cluster_uuid" : "d6af0bf5-3be4-4e98-aff1-812a5b6bcdfe",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "1.2.0",
+    "build_type" : "tar",
+    "build_hash" : "c459282fd67ddb17dcc545ec9bcdc805880bcbec",
+    "build_date" : "2021-11-22T16:57:18.360386Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.10.1",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}

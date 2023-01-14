@@ -35,7 +35,12 @@ def detect_elasticsearch_version(http_handler, logger):
     else:
         try:
             exact_version = cluster_state['version']['number']
-            if exact_version.startswith('2.'):
+
+            # OpenSearch
+            if cluster_state['version'].get('distribution') == "opensearch":
+                es_major_version = ELASTICSEARCH_MAJOR_VERSION_7
+            # ElasticSearch
+            elif exact_version.startswith('2.'):
                 es_major_version = ELASTICSEARCH_MAJOR_VERSION_2
             elif exact_version.startswith('5.') or exact_version.startswith('6.'):
                 es_major_version = ELASTICSEARCH_MAJOR_VERSION_6
