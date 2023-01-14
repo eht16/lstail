@@ -39,6 +39,12 @@ License
 ChangeLog
 ---------
 
+1.2.0 (Jan 14, 2023)
+++++++++++++++++++++
+
+  * Add support for OpenSearch
+  * Drop support for Python < 3.9
+
 1.1.0 (Jun 14, 2020)
 ++++++++++++++++++++
 
@@ -46,7 +52,6 @@ ChangeLog
   * Add default values in command line help output
   * Properly handle saved search with phrase filters without a query value
   * Fix errors when Kibana Saved Searches are missing index references
-
 
 1.0.0 (Dec 31, 2019)
 ++++++++++++++++++++
