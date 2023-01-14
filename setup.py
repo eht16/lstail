@@ -36,12 +36,11 @@ setup(
     author_email='enrico.troeger@uvena.de',
     url='https://github.com/eht16/lstail/',
     project_urls={
-        'Travis CI': 'https://travis-ci.org/eht16/lstail/',
         'Source code': 'https://github.com/eht16/lstail/',
         'Documentation': 'https://lstail.org/',
     },
     keywords='logging logs logstash query tail log-viewer cli',
-    python_requires='>=3.5',
+    python_requires='>=3.9',
     install_requires=['prompt-toolkit'],
     packages=['lstail'],
     include_package_data=True,

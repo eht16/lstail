@@ -35,7 +35,7 @@ Features
 Installation
 ------------
 
-Lstail requires Python 3.5 or newer.
+Lstail requires Python 3.9 or newer.
 The easiest method is to install directly from pypi using pip:
 
     pip install lstail
