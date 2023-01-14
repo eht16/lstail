@@ -1,4 +1,4 @@
-.. lstail documentation master file
+.. lstail documentation main file
 
 Lstail
 ======

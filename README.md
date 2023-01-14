@@ -3,7 +3,6 @@ Lstail
 
 [![PyPI](https://img.shields.io/pypi/v/lstail.svg)](https://pypi.org/project/lstail/)
 [![Documentation Status](https://readthedocs.org/projects/lstail/badge/?version=latest)](https://lstail.org/)
-[![Travis CI](https://travis-ci.org/eht16/lstail.svg?branch=master)](https://travis-ci.org/eht16/lstail)
 [![Python Versions](https://img.shields.io/pypi/pyversions/lstail.svg)](https://pypi.org/project/lstail/)
 [![License](https://img.shields.io/pypi/l/lstail.svg)](https://pypi.org/project/lstail/)
 
@@ -68,7 +67,7 @@ Alternatively, you can specify the name of the config file to be read
 using the `--config` command line parameter.
 
 An example config file can be found in the sources or online
-at https://raw.githubusercontent.com/eht16/lstail/master/lstail-example.conf.
+at https://raw.githubusercontent.com/eht16/lstail/main/lstail-example.conf.
 The important part to modify in the config file is the `server` section
 which must be edited to point to your ElasticSearch instance to query
 data from.

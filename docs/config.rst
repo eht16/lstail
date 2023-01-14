@@ -16,7 +16,7 @@ Alternatively, you can specify the name of the config file to be read
 using the ``--config`` command line parameter.
 
 An example config file can be found below or online
-at https://raw.githubusercontent.com/eht16/lstail/master/lstail-example.conf.
+at https://raw.githubusercontent.com/eht16/lstail/main/lstail-example.conf.
 The important part to modify in the config file is the `server` section
 which must be edited to point to your ElasticSearch instance to query
 data from.
