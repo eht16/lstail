@@ -11,8 +11,8 @@ from lstail.error import InvalidTimeRangeFormatError, InvalidTimestampFormatErro
 
 # ----------------------------------------------------------------------
 def parse_and_convert_time_range_to_start_date_time(time_range):
-    error_message = 'Invalid time range specified: {}. ' \
-        'Valid examples are: 60, 5m, 12h, 7d'.format(time_range)
+    error_message = f'Invalid time range specified: {time_range}. ' \
+        'Valid examples are: 60, 5m, 12h, 7d'
 
     try:
         # try to parse the time range as integer, interpret the value as seconds

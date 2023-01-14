@@ -124,7 +124,7 @@ class BaseQueryBuilder:
 
     # ----------------------------------------------------------------------
     def _setup_filter_mapping(self):
-        self._filters = {FILTER_GROUP_MUST: list(), FILTER_GROUP_MUST_NOT: list()}
+        self._filters = {FILTER_GROUP_MUST: [], FILTER_GROUP_MUST_NOT: []}
 
     # ----------------------------------------------------------------------
     def _factor_filter(self):

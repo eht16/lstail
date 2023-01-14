@@ -149,7 +149,7 @@ class LoggerTest(BaseTestCase):
         # positive test
         logger.log_document(LOG_DOCUMENT_TEST_DOCUMENT)
         # check
-        expected_output = '{}    localhost    message content'.format(LOG_DOCUMENT_TIMESTAMP)
+        expected_output = f'{LOG_DOCUMENT_TIMESTAMP}    localhost    message content'
         output = sys.stdout.getvalue().strip()  # pylint: disable=no-member
         self.assertEqual(output, expected_output)
 
@@ -174,11 +174,11 @@ class LoggerTest(BaseTestCase):
             with mock.patch.object(LstailLogger, '_print_document', new=fake_print_document):
                 logger.log_document(LOG_DOCUMENT_TEST_DOCUMENT)
 
-                expected_output = '{}    {:{padding}} Unparseable document: ValueError: {}:'.format(
-                    test_datetime.strftime(LOG_DOCUMENT_CONFIG.format.timestamp)[:-3],
-                    getfqdn(),
-                    fake_exc_msg,
-                    padding=LOG_DOCUMENT_COLUMN_HOST_PADDING)
+                expected_dt = test_datetime.strftime(LOG_DOCUMENT_CONFIG.format.timestamp)[:-3]
+                fqdn = getfqdn()
+                padding = LOG_DOCUMENT_COLUMN_HOST_PADDING
+                expected_output = f'{expected_dt}    {fqdn:{padding}} Unparseable document: ' \
+                                  f'ValueError: {fake_exc_msg}:'
                 output = sys.stdout.getvalue().strip()  # pylint: disable=no-member
                 self.assertTrue(output.startswith(expected_output))
 
@@ -403,8 +403,8 @@ class LoggerTest(BaseTestCase):
         document['_source']['program'] = test_program
 
         custom_output = StringIO()
-        expected_output = '{},localhost,info,{},"csv ""output"" message, and more"'.format(
-            LOG_DOCUMENT_TIMESTAMP, test_program)
+        expected_output = f'{LOG_DOCUMENT_TIMESTAMP},localhost,info,{test_program},' \
+                          '"csv ""output"" message, and more"'
 
         with freeze_time(LOG_DOCUMENT_TIMESTAMP):
             logger = LstailLogger(config, output=custom_output, verbose=False)
@@ -427,8 +427,8 @@ class LoggerTest(BaseTestCase):
         logger = LstailLogger(config, output=sys.stdout)
 
         # pass empty document
-        document = dict()
-        document_values = dict()
+        document = {}
+        document_values = {}
         result = logger._get_document_id_from_document(document_values, document)
         # check
         expected = None
@@ -436,8 +436,8 @@ class LoggerTest(BaseTestCase):
 
         # pass document with id
         test_id = 'test-id-42-test-73-test'
-        document = dict(_id=test_id)
-        document_values = dict()
+        document = {'_id': test_id}
+        document_values = {}
         result = logger._get_document_id_from_document(document_values, document)
         # check
         expected = test_id

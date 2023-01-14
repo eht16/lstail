@@ -41,7 +41,7 @@ class LogstashReader:
 
     # ----------------------------------------------------------------------
     def show_version(self):
-        print('Lstail {}'.format(VERSION), file=self._output)
+        print(f'Lstail {VERSION}', file=self._output)
 
     # ----------------------------------------------------------------------
     def list_kibana_saved_searches(self):
@@ -53,9 +53,7 @@ class LogstashReader:
             print('No saved searches found in Kibana', file=self._output)
         else:
             for saved_search in saved_searches:
-                print(
-                    u'{} ({})'.format(saved_search.title, saved_search.columns),
-                    file=self._output)
+                print(f'{saved_search.title} ({saved_search.columns})', file=self._output)
 
     # ----------------------------------------------------------------------
     def _get_kibana_saved_searches(self):
@@ -88,7 +86,7 @@ class LogstashReader:
             except Exception as exc:  # pylint: disable=broad-except
                 if self._config.debug:
                     traceback = format_exc()
-                    traceback = '\n{}'.format(traceback)
+                    traceback = f'\n{traceback}'
                 else:
                     traceback = ''
                 self._logger.error('Unexpected error occurred: {}{}', exc, traceback)
@@ -158,7 +156,7 @@ class LogstashReader:
 
     # ----------------------------------------------------------------------
     def _fetch_latest_documents(self):
-        path = '%s/_search' % self._base_query.index
+        path = f'{self._base_query.index}/_search'
         timestamp_from = self._last_timestamp.strftime(ELASTICSEARCH_TIMESTAMP_FORMAT)
         query = self._query_builder.build_query_for_time_range(self._base_query, timestamp_from)
         query.query['size'] = self._config.initial_query_size

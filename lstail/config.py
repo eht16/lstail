@@ -49,7 +49,7 @@ class LstailConfigParser:
         self._config_parser = ConfigParser()
         # read config file from location as specified via command line but fail it if doesn't exist
         if self._options.config_file_path:
-            with open(self._options.config_file_path) as config_file_h:
+            with open(self._options.config_file_path, encoding='utf-8') as config_file_h:
                 self._config_parser.read_file(config_file_h)
                 return
         # otherwise try pre-defined config file locations
@@ -147,9 +147,9 @@ class LstailConfigParser:
         try:
             return get_column_color_key(column_color_name)
         except KeyError as exc:
-            raise RuntimeError(
-                'Invalid terminal color specification: "{}" in section "{}"'.format(
-                    column_color_name, section_name)) from exc
+            msg = f'Invalid terminal color specification: "{column_color_name}" ' \
+                  f'in section "{section_name}"'
+            raise RuntimeError(msg) from exc
 
     # ----------------------------------------------------------------------
     def _parse_server_settings(self, section_name):

@@ -52,8 +52,8 @@ class LoggerOutputTest(BaseTestCase):
         config = deepcopy(CONFIG)
         config.no_header = False
 
-        expected_header = 'timestamp{}level    hostname   program{}message'.format(
-            ' ' * 16, ' ' * 16)
+        spaces = ' ' * 16
+        expected_header = f'timestamp{spaces}level    hostname   program{spaces}message'
         # test
         logger = LstailLogger(config, output=sys.stdout, verbose=False)
         logger.print_header()
@@ -81,8 +81,8 @@ class LoggerOutputTest(BaseTestCase):
         config.kibana.default_columns = CONFIG_DEFAULT_COLUMNS_NESTED
         config.display.columns[CONFIG_COLUMN_NESTED_NAME] = CONFIG_COLUMN_NESTED
 
-        expected_header = 'timestamp                level    {}       message'.format(
-            CONFIG_COLUMN_NESTED_NAME)
+        nested_name = CONFIG_COLUMN_NESTED_NAME
+        expected_header = f'timestamp                level    {nested_name}       message'
         # test
         logger = LstailLogger(config, output=sys.stdout, verbose=False)
         logger.print_header()
@@ -127,11 +127,7 @@ class LoggerOutputTest(BaseTestCase):
     def _factor_log_output(self, test_string, verbose, level):
         # verbose is only relevant for info and debug log levels, always True otherwise
         if verbose or level.lower() != 'debug':
-            return '{}  {:8}            {:22} {}'.format(
-                LOG_TIMESTAMP,
-                level,
-                PROGRAM_NAME,
-                test_string)
+            return f'{LOG_TIMESTAMP}  {level:8}            {PROGRAM_NAME:22} {test_string}'
 
         return ''
 
@@ -151,8 +147,7 @@ class LoggerOutputTest(BaseTestCase):
 
         test_string = 'info nested test message'
         test_nested = dict(nested=dict(column=dict(test='nested')))
-        expected_output = '{}  INFO     nested                   {}'.format(
-            LOG_TIMESTAMP, test_string)
+        expected_output = f'{LOG_TIMESTAMP}  INFO     nested                   {test_string}'
 
         with freeze_time(LOG_DATETIME):
             logger = LstailLogger(config, output=sys.stdout, verbose=False)

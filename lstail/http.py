@@ -38,11 +38,11 @@ class PreemptiveBasicAuthHandler(BaseHandler):
         if password is None:
             return req
 
-        raw = '{}:{}'.format(user, password)
+        raw = f'{user}:{password}'
         raw_bytes = raw.encode('utf-8')
         auth = base64.b64encode(raw_bytes)
         auth = auth.decode()
-        auth_header = 'Basic {}'.format(auth)
+        auth_header = f'Basic {auth}'
         auth_header = auth_header.strip()
         req.add_unredirected_header('Authorization', auth_header)
         return req
@@ -88,14 +88,14 @@ class ElasticsearchRequestController:
         if self._user_agent is not None:
             return
 
-        self._user_agent = 'lstail/{} Python/{}'.format(VERSION, sys.version[:3])
+        self._user_agent = f'lstail/{VERSION} Python/{sys.version[:3]}'
 
     # ----------------------------------------------------------------------
     def _setup_url_opener_if_necessary(self):
         if self._url_opener is not None:
             return
 
-        kwargs = dict()
+        kwargs = {}
 
         # disable SSL verification if requested
         if not self._verify_ssl_certificates:
@@ -154,7 +154,7 @@ class ElasticsearchRequestController:
         finally:
             call_duration = self._calculate_call_duration(begin_date)
             http_method = 'POST' if data else http_method
-            memory_usage = ' - {:0.2f} MB'.format(get_memory_usage()) if self._debug else ''
+            memory_usage = f' - {get_memory_usage():0.2f} MB' if self._debug else ''
             self._logger.debug(
                 'Querying server "{}" took {:0.3f} seconds ({} {}){memory_usage}',
                 server.name,
@@ -170,7 +170,7 @@ class ElasticsearchRequestController:
         base_url = server.url
         base_url = base_url.rstrip('/')  # cut trailing slashes
         path = path.lstrip('/')  # cut leading slashes
-        return '%s/%s' % (base_url, path)
+        return f'{base_url}/{path}'
 
     # ----------------------------------------------------------------------
     def _factor_request(self, url, data, http_method):
@@ -223,13 +223,12 @@ class ElasticsearchRequestController:
         if isinstance(response, dict) and response.get('timed_out', False):
             server = self._servers[0]
             self._logger.warning(
-                'Server "{}" failed: timeout, trying next server'.format(server.name))
+                f'Server "{server.name}" failed: timeout, trying next server')
             raise HttpRetryError()
 
     # ----------------------------------------------------------------------
     def _log_request_error(self, url, server, exc):
-        self._logger.warning(
-            'Server "{}" failed: {}, trying next server'.format(server.name, str(exc)))
+        self._logger.warning(f'Server "{server.name}" failed: {exc}, trying next server')
         # check for HTTPError and read body
         if hasattr(exc, 'read'):  # probably a HTTPError containing a response body to read
             response = self._parse_response(exc, decode_as_json=False)

@@ -39,9 +39,9 @@ class LogstashReaderTest(BaseTestCase):
         reader.list_kibana_saved_searches()
 
         # check
-        expected_output = u'Dummy saved search 1 (host, program, log_level, _id, ' + \
-            u'log_level_no_orig, message)\nParse Errors (tags, logsource, program, message)\n' + \
-            u'Syslog (host, program, message)'
+        expected_output = 'Dummy saved search 1 (host, program, log_level, _id, ' + \
+            'log_level_no_orig, message)\nParse Errors (tags, logsource, program, message)\n' + \
+            'Syslog (host, program, message)'
         output = sys.stdout.getvalue().strip()  # pylint: disable=no-member
         self.assertEqual(output, expected_output)
 
@@ -58,9 +58,9 @@ class LogstashReaderTest(BaseTestCase):
         reader.list_kibana_saved_searches()
 
         # check
-        expected_output = u'Kibana Saved Search 2 (fromhost, programname)\nKibana saved ' + \
-            u'search 1 (fromhost, requestHost, vHostPort, requestUrl)\nSüslogging ' + \
-            u'(fromhost, programname, severity, message)'
+        expected_output = 'Kibana Saved Search 2 (fromhost, programname)\nKibana saved ' + \
+            'search 1 (fromhost, requestHost, vHostPort, requestUrl)\nSüslogging ' + \
+            '(fromhost, programname, severity, message)'
         output = sys.stdout.getvalue().strip()  # pylint: disable=no-member
         self.assertEqual(output, expected_output)
 

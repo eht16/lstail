@@ -20,28 +20,28 @@ class SafeMunchTest(BaseTestCase):
         self.assertEqual(smunch.hello, 'world')
         smunch['hello'] += "!"
         self.assertEqual(smunch.hello, 'world!')
-        smunch.foo = SafeMunch(lol=True)
-        self.assertTrue(smunch.foo.lol)
-        self.assertIs(smunch.foo, smunch['foo'])
+        smunch.foobar = SafeMunch(lol=True)
+        self.assertTrue(smunch.foobar.lol)
+        self.assertIs(smunch.foobar, smunch['foobar'])
 
-        self.assertEqual(sorted(smunch.keys()), ['foo', 'hello'])
+        self.assertEqual(sorted(smunch.keys()), ['foobar', 'hello'])
 
         smunch.sm_dict_update({'ponies': 'are pretty!'}, hello=42)
         expected_dict = SafeMunch(
             {'ponies': 'are pretty!',
-             'foo': SafeMunch({'lol': True}),
+             'foobar': SafeMunch({'lol': True}),
              'hello': 42})
         self.assertEqual(smunch, expected_dict)
 
         test_list = sorted([(k, smunch[k]) for k in smunch])
         expected_list = [
-            ('foo', SafeMunch({'lol': True})),
+            ('foobar', SafeMunch({'lol': True})),
             ('hello', 42),
             ('ponies', 'are pretty!')]
         self.assertEqual(test_list, expected_list)
 
-        test_string = "The {knights} who say {ni}!".format(
-            **SafeMunch(knights='lolcats', ni='can haz'))
+        test_dict = SafeMunch(knights='lolcats', ni='can haz')
+        test_string = f'The {test_dict["knights"]} who say {test_dict["ni"]}!'
         expected_string = 'The lolcats who say can haz!'
         self.assertEqual(test_string, expected_string)
 
@@ -130,7 +130,7 @@ class SafeMunchTest(BaseTestCase):
     # ----------------------------------------------------------------------
     def _test_reserved_attribute(self, attrname):
         taken_munch = SafeMunch(**{attrname: 'abc123'})
-        msg = 'attribute: {}'.format(attrname)
+        msg = f'attribute: {attrname}'
 
         # Make sure that the attribute is determined as in the filled collection...
         self.assertIn(attrname, taken_munch, msg=msg)

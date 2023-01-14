@@ -78,7 +78,8 @@ class LstailLogger:
         self._use_colors = detect_terminal_color_support(self._output, force=force)
 
         self._term_colors = TERM_COLORS
-        self._term_reset_string = '{}\r'.format(self._term_colors['_c_reset'])
+        color_reset = self._term_colors['_c_reset']
+        self._term_reset_string = f'{color_reset}\r'
         if not self._use_colors:
             # clear any color values
             for color_name in self._term_colors:
@@ -92,7 +93,7 @@ class LstailLogger:
         self._add_document_id_column_if_necessary(self._internal_display_columns)
 
     # ----------------------------------------------------------------------
-    def _add_timestamp_column_if_necessary(self, columns):  # pylint: disable=no-self-use
+    def _add_timestamp_column_if_necessary(self, columns):
         if LSTAIL_DEFAULT_FIELD_TIMESTAMP not in columns:
             # hard-coded timestamp column as Kibana saved searches don't include it
             columns.insert(0, LSTAIL_DEFAULT_FIELD_TIMESTAMP)
@@ -105,7 +106,7 @@ class LstailLogger:
 
     # ----------------------------------------------------------------------
     def _factor_default_document_values(self):
-        default_doc_values = dict()
+        default_doc_values = {}
         default_doc_values[LSTAIL_DEFAULT_FIELD_DOCUMENT_ID] = LSTAIL_DEFAULT_FIELD_DOCUMENT_ID
         default_doc_values[LSTAIL_DEFAULT_FIELD_TIMESTAMP] = LSTAIL_DEFAULT_FIELD_TIMESTAMP
         self._default_document_values = default_doc_values
@@ -136,7 +137,7 @@ class LstailLogger:
                 else:
                     # we are in somewhere on the road and there are more nested levels to come,
                     # so add another level
-                    current_level_values[column_name_element] = dict()
+                    current_level_values[column_name_element] = {}
             # dive one level deeper
             current_level_values = current_level_values[column_name_element]
 
@@ -162,7 +163,7 @@ class LstailLogger:
         # handle exception information
         exc_info = kwargs.get('exc_info', None)
         if exc_info is not None:
-            message = '{}{}'.format(message, self._format_exception(exc_info))
+            message = f'{message}{self._format_exception(exc_info)}'
         # fake Logstash document
         extra = kwargs.get('extra', None)
         document = self._factor_logstash_document(message, level, extra=extra)
@@ -223,12 +224,10 @@ class LstailLogger:
 
     # ----------------------------------------------------------------------
     def _factor_error_message_from_exception(self, exc, document):
-        values = dict(
-            error=str(exc),
-            exc_type=exc.__class__.__name__,
-            message=repr(document),
-            **self._term_colors)
-        return '{_c_red}Unparseable document: {exc_type}: {error}: {message}'.format(**values)
+        exc_type = exc.__class__.__name__
+        message = repr(document)
+        _c_red = self._term_colors['_c_red']
+        return f'{_c_red}Unparseable document: {exc_type}: {exc}: {message}'
 
     # ----------------------------------------------------------------------
     def _get_document_values(self, document):
@@ -299,7 +298,7 @@ class LstailLogger:
             return None
 
         color_code = self._factor_log_level_color_code(log_level)
-        message = '{}{}'.format(self._term_colors[color_code], message)
+        message = f'{self._term_colors[color_code]}{message}'
         return message
 
     # ----------------------------------------------------------------------
@@ -366,7 +365,7 @@ class LstailLogger:
 
     # ----------------------------------------------------------------------
     def _print_document_as_csv(self, document, document_values):
-        values = dict()
+        values = {}
         columns = self._get_display_columns_for_document(document)
         for column in columns:
             get_value_from_document = attrgetter(column)
@@ -391,7 +390,7 @@ class LstailLogger:
 
     # ----------------------------------------------------------------------
     def _prepare_column_specs(self, document, document_values, force_color):
-        message_format_parts = list()
+        message_format_parts = []
         display_columns = self._get_display_columns_for_document(document)
 
         for column_name in display_columns:
@@ -465,7 +464,7 @@ class LstailLogger:
         # if we are here, we didn't find an appropriate column in the configuration, so
         # set it to empty (or to the column name for debugging)
         if self._config.debug:
-            document_values[column_name] = '<{}>'.format(column_name)
+            document_values[column_name] = f'<{column_name}>'
         else:
             document_values[column_name] = ''
 
@@ -483,11 +482,7 @@ class LstailLogger:
 
     # ----------------------------------------------------------------------
     def _factor_column_spec(self, column_name, color_code, column_padding):
-        return '{{{}}}{{{}:{}}}{{{}}}'.format(
-            color_code,
-            column_name,
-            column_padding,
-            self._color_code_reset)
+        return f'{{{color_code}}}{{{column_name}:{column_padding}}}{{{self._color_code_reset}}}'
 
     # ----------------------------------------------------------------------
     def _auto_fill_format_message(self, message_format, document_values):

@@ -46,12 +46,12 @@ class ElasticSearch2QueryBuilder(BaseQueryBuilder):
         query_json = dumps(query)
 
         # request
-        url = '{}/_search'.format(self._kibana_index_name)
+        url = f'{self._kibana_index_name}/_search'
         response = self._http_handler.request(url, data=query_json)
 
         # did we find it?
         if not response['hits']['total']:
-            message = 'Kibana saved search "{}" not found!'.format(self._saved_search_title)
+            message = f'Kibana saved search "{self._saved_search_title}" not found!'
             raise KibanaSavedSearchNotFoundError(message)
 
         # take the first hit, as we sorted by _score DESC, this should be the best match
@@ -59,7 +59,7 @@ class ElasticSearch2QueryBuilder(BaseQueryBuilder):
         self._kibana_search = best_match['_source']
         # tell the logger which columns to use
         self._logger.update_display_columns(self._kibana_search['columns'])
-        self._logger.debug('Using Kibana saved search "{}"'.format(self._kibana_search['title']))
+        self._logger.debug('Using Kibana saved search "%s"', self._kibana_search['title'])
 
     # ----------------------------------------------------------------------
     def _get_query_from_search_source(self):

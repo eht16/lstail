@@ -51,7 +51,7 @@ class ListKibanaSavedSearchesController:
 
     # ----------------------------------------------------------------------
     def _fetch_kibana_saved_searches_v4(self):
-        url = '{}/search/_search?size=1000'.format(self._config.kibana.index_name)
+        url = f'{self._config.kibana.index_name}/search/_search?size=1000'
         self._kibana_search_response = self._request_kibana_saved_searches(url)
 
     # ----------------------------------------------------------------------
@@ -61,7 +61,7 @@ class ListKibanaSavedSearchesController:
 
     # ----------------------------------------------------------------------
     def _fetch_kibana_saved_searches_v6(self):
-        url = '{}/_search'.format(self._config.kibana.index_name)
+        url = f'{self._config.kibana.index_name}/_search'
         self._kibana_search_response = self._request_kibana_saved_searches(
             url,
             KIBANA6_SAVED_SEARCH_LIST_QUERY)
@@ -77,7 +77,7 @@ class ListKibanaSavedSearchesController:
 
     # ----------------------------------------------------------------------
     def _parse_response(self):
-        self._kibana_saved_searches = list()
+        self._kibana_saved_searches = []
         response_hits = self._kibana_search_response['hits']['hits']
 
         saved_searches = sorted(

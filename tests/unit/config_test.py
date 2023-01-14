@@ -139,10 +139,10 @@ class ConfigTest(BaseTestCase):
         index = 0
         for server in self._config.servers:
             index += 1
-            self.assertEqual(server.name, 'test_server{}'.format(index))
-            self.assertEqual(server.url, 'http://127.0.0.{}:9200'.format(index))
-            self.assertEqual(server.username, 'logstash{}'.format(index))
-            self.assertEqual(server.password, 'secret{}'.format(index))
+            self.assertEqual(server.name, f'test_server{index}')
+            self.assertEqual(server.url, f'http://127.0.0.{index}:9200')
+            self.assertEqual(server.username, f'logstash{index}')
+            self.assertEqual(server.password, f'secret{index}')
             found_header_key1 = False
             found_header_key2 = False
             for key, value in server.headers:
@@ -151,18 +151,17 @@ class ConfigTest(BaseTestCase):
                     self.assertEqual(value, str(index))
                     found_header_key1 = True
                 elif key == 'key2':
-                    self.assertEqual(value, 'dhjshkjhd{}'.format(index))
+                    self.assertEqual(value, f'dhjshkjhd{index}')
                     found_header_key2 = True
                 else:
-                    self.fail(msg='Unknown header "{}" found for server "{}"'.format(
-                        key, server.name))
+                    self.fail(msg=f'Unknown header "{key}" found for server "{server.name}"')
 
             self.assertTrue(
                 found_header_key1,
-                msg='Header key1 not found in headers {}'.format(server.headers))
+                msg=f'Header key1 not found in headers {server.headers}')
             self.assertTrue(
                 found_header_key2,
-                msg='Header key2 not found in headers {}'.format(server.headers))
+                msg=f'Header key2 not found in headers {server.headers}')
 
         # test for missing server which has enabled=False in config
         for server in self._config.servers:

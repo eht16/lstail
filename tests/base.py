@@ -65,6 +65,6 @@ class BaseTestCase(unittest.TestCase):
 
     # ----------------------------------------------------------------------
     def _get_test_data(self, name):
-        filename = 'tests/test_data/{}.json'.format(name)
-        with open(filename) as responses_f:
+        filename = f'tests/test_data/{name}.json'
+        with open(filename, encoding='utf-8') as responses_f:
             return load(responses_f)

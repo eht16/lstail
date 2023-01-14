@@ -17,7 +17,7 @@ class KibanaSavedSearchSelectPrompt:
     # ----------------------------------------------------------------------
     def __init__(self, saved_searches):
         self._saved_searches = saved_searches
-        self._saved_searches_completions = dict()
+        self._saved_searches_completions = {}
         self._saved_searches_completer = None
         self._selected_saved_search = None
 
@@ -38,7 +38,7 @@ class KibanaSavedSearchSelectPrompt:
             '<ansimagenta><i>Continue without any saved search</i></ansimagenta>')
 
         for saved_search in self._saved_searches:
-            meta = HTML('Columns: <ansiblue>{}</ansiblue>'.format(saved_search.columns))
+            meta = HTML(f'Columns: <ansiblue>{saved_search.columns}</ansiblue>')
             self._saved_searches_completions[saved_search.title] = meta
 
     # ----------------------------------------------------------------------

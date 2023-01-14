@@ -77,7 +77,7 @@ class SafeMunch:
 
     # ----------------------------------------------------------------------
     def __repr__(self):
-        return '{0}({1!r})'.format(self.__class__.__name__, self._data)
+        return f'{self.__class__.__name__}({self._data!r})'
 
     # ----------------------------------------------------------------------
     def __getitem__(self, key):
@@ -101,7 +101,7 @@ class SafeMunch:
     # ----------------------------------------------------------------------
     def sm_dict_keys_flattened(self, data=None, separator='.'):
         """Return all keys, resolved recursively into one list"""
-        keys = list()
+        keys = []
         if data is None:
             data = self._data
         for key in data:
@@ -158,8 +158,7 @@ class DefaultSafeMunch(SafeMunch):
 
     # ----------------------------------------------------------------------
     def __repr__(self):
-        return '{0}({1!r}, {2})'.format(
-            type(self).__name__, self.__undefined__, self._data)
+        return f'{type(self).__name__}({self.__undefined__!r}, {self._data})'
 
 
 # ----------------------------------------------------------------------

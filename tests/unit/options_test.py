@@ -23,12 +23,12 @@ class OptionsTest(BaseTestCase):
     def _test_flag(self, option_short_name, option_long_name, name):
         # short name
         if option_short_name is not None:
-            parser = LstailArgumentParser(['-{}'.format(option_short_name)])
+            parser = LstailArgumentParser([f'-{option_short_name}'])
             arguments = parser.parse()
             self.assertTrue(getattr(arguments, name))
 
         # long name
-        parser = LstailArgumentParser(['--{}'.format(option_long_name)])
+        parser = LstailArgumentParser([f'--{option_long_name}'])
         arguments = parser.parse()
         self.assertTrue(getattr(arguments, name))
 
@@ -72,13 +72,13 @@ class OptionsTest(BaseTestCase):
     # ----------------------------------------------------------------------
     def _test_option(self, option_short_name, option_long_name, name, value):
         # short name
-        parser = LstailArgumentParser(['-{}'.format(option_short_name), str(value)])
+        parser = LstailArgumentParser([f'-{option_short_name}', str(value)])
         arguments = parser.parse()
         short_name_value = getattr(arguments, name)
         self.assertEqual(short_name_value, value)
 
         # long name
-        parser = LstailArgumentParser(['--{}'.format(option_long_name), str(value)])
+        parser = LstailArgumentParser([f'--{option_long_name}', str(value)])
         arguments = parser.parse()
         long_name_value = getattr(arguments, name)
         self.assertEqual(long_name_value, value)

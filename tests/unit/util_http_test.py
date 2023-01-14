@@ -77,7 +77,7 @@ class DetectElasticSearchVersionTest(BaseTestCase):
     def test_detect_elasticsearch_version_negative_invalid_data_no_version(self):
         http_handler = mock.MagicMock()
         # unexpected JSON input - empty version
-        http_handler.request.return_value = dict(version=dict())
+        http_handler.request.return_value = dict(version={})
         es_major_version = detect_elasticsearch_version(http_handler, self._mocked_logger)
         self.assertEqual(es_major_version, DEFAULT_ELASTICSEARCH_MAJOR_VERSION)
         self._mocked_logger.info.assert_called_once()  # expect a log entry

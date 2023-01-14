@@ -51,7 +51,7 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
         query_json = dumps(query)
 
         # request
-        url = '{}/_search'.format(self._kibana_index_name)
+        url = f'{self._kibana_index_name}/_search'
         response = self._http_handler.request(url, data=query_json)
 
         # did we find it?
@@ -65,18 +65,18 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
 
         # tell the logger which columns to use
         self._logger.update_display_columns(self._kibana_search['columns'])
-        self._logger.debug('Using Kibana saved search "{}"'.format(self._kibana_search['title']))
+        self._logger.debug(f'Using Kibana saved search "{self._kibana_search["title"]}"')
 
     # ----------------------------------------------------------------------
     def _assert_saved_search_found(self, response):
         if not response['hits']['total']['value']:
-            message = 'Kibana saved search "{}" not found!'.format(self._saved_search_title)
+            message = f'Kibana saved search "{self._saved_search_title}" not found!'
             raise KibanaSavedSearchNotFoundError(message)
 
     # ----------------------------------------------------------------------
     def _assert_saved_search_has_index(self):
         if not self._kibana_search_references:
-            message = 'Kibana saved search "{}" has no index set!'.format(self._saved_search_title)
+            message = f'Kibana saved search "{self._saved_search_title}" has no index set!'
             raise KibanaSavedSearchNotFoundError(message)
 
     # ----------------------------------------------------------------------
@@ -99,7 +99,7 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
         elif filter_type == 'range':
             return self._factor_filter_query_for_type_range()
 
-        self._logger.info(u'Unknown filter type "{}", skipping!'.format(filter_type))
+        self._logger.info(f'Unknown filter type "{filter_type}", skipping!')
         raise UnsupportedFilterTypeError()
 
     # ----------------------------------------------------------------------
@@ -119,11 +119,11 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
                 }
             }
         else:
-            raise ValueError('No suitable filter query found in filter: {}'.format(self._filter))
+            raise ValueError(f'No suitable filter query found in filter: {self._filter}')
 
     # ----------------------------------------------------------------------
     def _factor_filter_query_for_type_phrases(self):
-        phrases = list()
+        phrases = []
         for param in self._filter['meta']['params']:
             phrase = {
                 "match_phrase": {
@@ -178,16 +178,15 @@ class ElasticSearch7QueryBuilder(BaseQueryBuilder):
     def _get_index_by_id(self, index_pattern_id):
         query = deepcopy(KIBANA6_INDEX_PATTERN_SEARCH_QUERY)
         # replace index ID in query
-        query['query']['match']['_id'] = 'index-pattern:{}'.format(index_pattern_id)
+        query['query']['match']['_id'] = f'index-pattern:{index_pattern_id}'
         query_json = dumps(query)
-        url = '{}/_search'.format(self._kibana_index_name)
+        url = f'{self._kibana_index_name}/_search'
         # search index by its ID
         response = self._http_handler.request(url, data=query_json)
         # not found?
         if not response['hits']['total']['value']:
-            message = 'Index reference "{}" as found in saved search "{}" not found!'.format(
-                self._kibana_search['title'],
-                index_pattern_id)
+            message = f'Index reference "{self._kibana_search["title"]}" as found in saved ' \
+                      f'search "{index_pattern_id}" not found!'
             raise RuntimeError(message)
 
         return response['hits']['hits'][0]['_source']['index-pattern']

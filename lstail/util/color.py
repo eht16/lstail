@@ -10,7 +10,7 @@ from lstail.constants import TERM_COLOR_DEFAULT, TERM_COLORS
 
 # ----------------------------------------------------------------------
 def factor_color_code(color_name):
-    return '_c_{}'.format(color_name)
+    return f'_c_{color_name}'
 
 
 # ----------------------------------------------------------------------
@@ -22,8 +22,7 @@ def get_column_color_key(column_color_name):
     try:
         TERM_COLORS[column_color_key]
     except KeyError as exc:
-        raise KeyError(
-            'Invalid terminal color specification: "{}"'.format(column_color_name)) from exc
+        raise KeyError(f'Invalid terminal color specification: "{column_color_name}"') from exc
     else:
         return column_color_key
 

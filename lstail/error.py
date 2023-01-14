@@ -40,10 +40,8 @@ class DocumentIdAlreadyProcessedError(Exception):
 
     # ----------------------------------------------------------------------
     def __str__(self):
-        msg = 'Received already processed document "{}". Document: {}'.format(
-            self.document_id,
-            self.document_values)
-        return '{}'.format(msg)
+        return f'Received already processed document "{self.document_id}". ' \
+            f'Document: {self.document_values}'
 
 
 ########################################################################

@@ -51,7 +51,7 @@ class HttpTest(BaseTestCase):
         data = None
         content_type = None
         server = TEST_SERVER_1
-        headers = dict()
+        headers = {}
 
         http_client._setup_request_headers(request, data, content_type, server)
         expected_headers = {
@@ -67,7 +67,7 @@ class HttpTest(BaseTestCase):
         data = None
         content_type = 'text/css'
         server = TEST_SERVER_1
-        headers = dict()
+        headers = {}
 
         http_client._setup_request_headers(request, data, content_type, server)
         expected_headers = {
@@ -84,7 +84,7 @@ class HttpTest(BaseTestCase):
         data = 'dummy data'
         content_type = 'text/css'
         server = TEST_SERVER_1
-        headers = dict()
+        headers = {}
 
         http_client._setup_request_headers(request, data, content_type, server)
         expected_headers = {
@@ -101,7 +101,7 @@ class HttpTest(BaseTestCase):
         data = 'dummy data'
         content_type = None
         server = TEST_SERVER_1
-        headers = dict()
+        headers = {}
 
         http_client._setup_request_headers(request, data, content_type, server)
         expected_headers = {
@@ -250,22 +250,25 @@ class HttpTest(BaseTestCase):
 
         # trailing slashes on host
         for i in range(1, 5):
-            server = mock.Mock(url='http://127.0.0.1:9200{}'.format('/' * i))
+            trailing_slashes = '/' * i
+            server = mock.Mock(url=f'http://127.0.0.1:9200{trailing_slashes}')
             path = 'foo/bar'
             url = http_client._factor_url(server, path)
             self.assertEqual(url, 'http://127.0.0.1:9200/foo/bar')
 
         # trailing slashes on host
         for i in range(1, 5):
+            trailing_slashes = '/' * i
             server = mock.Mock(url='http://127.0.0.1:9200')
-            path = '{}foo/bar'.format('/' * i)
+            path = f'{trailing_slashes}foo/bar'
             url = http_client._factor_url(server, path)
             self.assertEqual(url, 'http://127.0.0.1:9200/foo/bar')
 
         # both
         for i in range(1, 5):
-            server = mock.Mock(url='http://127.0.0.1:9200{}'.format('/' * i))
-            path = '{}foo/bar'.format('/' * i)
+            trailing_slashes = '/' * i
+            server = mock.Mock(url=f'http://127.0.0.1:9200{trailing_slashes}')
+            path = f'{trailing_slashes}foo/bar'
             url = http_client._factor_url(server, path)
             self.assertEqual(url, 'http://127.0.0.1:9200/foo/bar')
 
@@ -327,9 +330,8 @@ class HttpTest(BaseTestCase):
         # simple exception
         self._mocked_logger.reset_mock()
         http_client._log_request_error('/foo', TEST_SERVER_1, ValueError('foobar exc'))
-        expected_log_message = 'Server "{}" failed: {}, trying next server'.format(
-            TEST_SERVER_1.name, 'foobar exc')
-        self._mocked_logger.warning.assert_called_once_with(expected_log_message)
+        expected_message = f'Server "{TEST_SERVER_1.name}" failed: foobar exc, trying next server'
+        self._mocked_logger.warning.assert_called_once_with(expected_message)
 
         # HTTPError exception
         self._mocked_logger.reset_mock()
@@ -338,9 +340,8 @@ class HttpTest(BaseTestCase):
         exc.__str__.return_value = exc_text
         exc.read.return_value = exc_text
         http_client._log_request_error('/foo', TEST_SERVER_1, exc)
-        expected_log_message = 'Server "{}" failed: {}, trying next server'.format(
-            TEST_SERVER_1.name, exc_text)
-        self._mocked_logger.warning.assert_called_once_with(expected_log_message)
+        expected_message = f'Server "{TEST_SERVER_1.name}" failed: {exc_text}, trying next server'
+        self._mocked_logger.warning.assert_called_once_with(expected_message)
         self._mocked_logger.debug.assert_called_once()
 
     # ----------------------------------------------------------------------

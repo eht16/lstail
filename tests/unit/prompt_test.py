@@ -80,8 +80,7 @@ class LogstashReaderTest(BaseTestCase):
         # compare dict keys for equality
         self.assertEqual(result.keys(), expected_result.keys())
         # compare dict values
-        for result_key in result:
-            item = result[result_key]
+        for result_key, item in result.items():
             expected_item = expected_result[result_key]
 
             self.assertEqual(item.value, expected_item.value)

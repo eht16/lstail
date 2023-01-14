@@ -70,7 +70,7 @@ BASE_QUERY_ES2 = {
                 }
             },
             'query': {
-                'language': u'lucene',
+                'language': 'lucene',
                 'query': {
                     'query_string': {
                         'analyze_wildcard': True,

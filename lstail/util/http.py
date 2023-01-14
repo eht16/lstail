@@ -24,8 +24,7 @@ def is_error_http_not_found(exc):
 # ----------------------------------------------------------------------
 def detect_elasticsearch_version(http_handler, logger):
     def _log_error(exc):
-        logger.info(
-            'Assuming ElasticSearch major version {}.x, error: {}'.format(es_major_version, exc))
+        logger.info(f'Assuming ElasticSearch major version {es_major_version}.x, error: {exc}')
 
     exact_version = '<not detected>'
     es_major_version = DEFAULT_ELASTICSEARCH_MAJOR_VERSION
@@ -45,6 +44,5 @@ def detect_elasticsearch_version(http_handler, logger):
         except (KeyError, TypeError) as exc:
             _log_error(exc)
 
-    logger.debug(
-        'Using ElasticSearch major version {} ({})'.format(es_major_version, exact_version))
+    logger.debug(f'Using ElasticSearch major version {es_major_version} ({exact_version})')
     return es_major_version

@@ -9,9 +9,9 @@ from os import getpid
 # ----------------------------------------------------------------------
 def get_memory_usage():
     mem_usage = dict(rss=0.0)
-    proc_status = '/proc/%d/status' % getpid()
+    proc_status = f'/proc/{getpid()}/status'
     try:
-        with open(proc_status) as file_h:
+        with open(proc_status, encoding='utf-8') as file_h:
             content = file_h.read()
     except IOError:
         return 0.0

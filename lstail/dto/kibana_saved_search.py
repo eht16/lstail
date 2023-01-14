@@ -21,4 +21,4 @@ class KibanaSavedSearch:
 
     # ----------------------------------------------------------------------
     def __repr__(self):
-        return 'KibanaSavedSearch(title="{}", columns="{}")'.format(self.title, self.columns)
+        return f'KibanaSavedSearch(title="{self.title}", columns="{self.columns}")'

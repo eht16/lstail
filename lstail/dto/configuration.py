@@ -38,7 +38,4 @@ class Configuration:  # pylint: disable=too-few-public-methods,too-many-instance
 
     # ----------------------------------------------------------------------
     def __repr__(self):
-        return '<{}(debug={}, verbose={})>'.format(
-            self.__class__.__name__,
-            self.debug,
-            self.verbose)
+        return f'<{self.__class__.__name__}(debug={self.debug}, verbose={self.verbose})>'
